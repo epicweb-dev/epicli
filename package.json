@@ -40,6 +40,7 @@
   "devDependencies": {
     "@epic-web/config": "^1.18.2",
     "@types/node": "^22.13.11",
+    "@types/prompts": "^2.4.9",
     "@types/yargs": "^17.0.33",
     "eslint": "^9.23.0",
     "prettier": "^3.5.3",

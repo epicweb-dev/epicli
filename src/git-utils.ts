@@ -1,6 +1,7 @@
-import { existsSync } from 'node:fs'
+import { rm, stat } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import chalk from 'chalk'
 import filenamify from 'filenamify'
 import { Octokit } from 'octokit'
 import simpleGit from 'simple-git'
@@ -23,12 +24,18 @@ async function resolveRepoPath(
 > {
 	// If it's a full URL, return as-is
 	if (repoPath.startsWith('http')) {
-		const localPath = join(tmpdir(), 'epicli', filenamify(repoPath))
+		const localPath = join(
+			tmpdir(),
+			'epicli',
+			filenamify(repoPath, { replacement: '_' }),
+			Date.now().toString(),
+		)
 		return { type: 'remote', remotePath: repoPath, localPath }
 	}
 
+	const exists = await stat(repoPath).catch(() => false)
 	// Check if it's a valid local path
-	if (existsSync(repoPath)) {
+	if (exists) {
 		return { type: 'local', localPath: repoPath }
 	}
 
@@ -45,13 +52,16 @@ async function resolveRepoPath(
 	)
 }
 
-export async function getGitDiff(repoPath: string): Promise<string> {
+export async function getGitDiff(repoPath: string) {
 	const git = simpleGit()
 
 	const { type, localPath, remotePath } = await resolveRepoPath(repoPath)
 
 	// Clone if it's a remote repository
 	if (type === 'remote') {
+		console.log(
+			`⬇️  Cloning ${remotePath} into a temporary directory: ${chalk.dim(localPath)}`,
+		)
 		await git.clone(remotePath, localPath)
 	}
 
@@ -82,15 +92,13 @@ export async function getGitDiff(repoPath: string): Promise<string> {
 	// Clean up if we cloned the repo
 	if (type === 'remote') {
 		await git.cwd('..')
-		await git.raw(['rm', '-rf', localPath])
+		await rm(localPath, { recursive: true, force: true })
 	}
 
 	return diff
 }
 
-export async function searchExampleRepos(
-	query: string = 'epic-stack-example',
-): Promise<Array<{ name: string; description: string; stars: number }>> {
+export async function searchExampleRepos(query: string = 'epic-stack-example') {
 	const octokit = new Octokit()
 
 	const { data } = await octokit.rest.search.repos({
