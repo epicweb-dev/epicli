@@ -4,15 +4,11 @@
   "description": "A powerful CLI for working with the Epic Stack",
   "main": "dist/index.js",
   "type": "module",
-  "imports": {
-    "#src/*": "./src/*",
-    "#tests/*": "./tests/*"
-  },
   "bin": {
     "epicli": "./dist/bin/epicli.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.src.json",
     "dev": "tsc --watch",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"**/*.ts\"",

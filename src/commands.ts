@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import clipboard from 'clipboardy'
 import prompts from 'prompts'
-import { getGitDiff, searchExampleRepos } from './git-utils.ts'
+import { getGitDiff, searchExampleRepos } from './git-utils.js'
 
 export async function generate({ exampleRepo }: { exampleRepo?: string }) {
 	try {

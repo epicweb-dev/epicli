@@ -73,6 +73,9 @@ jobs:
         with:
           useLockFile: false
 
+      - name: 🏗️ Build
+        run: npm run build
+
       - name: 🚀 Release
         uses: cycjimmy/semantic-release-action@v3.2.0
         with:
