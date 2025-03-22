@@ -1,0 +1,12 @@
+{
+	"extends": ["@epic-web/config/typescript"],
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.test.json"
+		},
+		{
+			"path": "./tsconfig.src.json"
+		}
+	]
+}

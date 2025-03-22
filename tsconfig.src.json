@@ -1,0 +1,12 @@
+{
+	"extends": ["@epic-web/config/typescript"],
+	"include": ["**/*.ts"],
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "src",
+		"baseUrl": ".",
+		"paths": {
+			"#src/*": ["./src/*"]
+		}
+	}
+}

@@ -1,0 +1,50 @@
+{
+  "name": "epicli",
+  "version": "0.0.0-semantically-released",
+  "description": "A powerful CLI for working with the Epic Stack",
+  "main": "dist/index.js",
+  "type": "module",
+  "imports": {
+    "#src/*": "./src/*",
+    "#tests/*": "./tests/*"
+  },
+  "bin": {
+    "epicli": "./dist/bin/epicli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest"
+  },
+  "keywords": [
+    "epic-stack",
+    "cli",
+    "ai",
+    "prompts"
+  ],
+  "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",
+  "license": "MIT",
+  "prettier": "@epic-web/config/prettier",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "clipboardy": "^4.0.0",
+    "filenamify": "^6.0.0",
+    "octokit": "^4.1.2",
+    "prompts": "^2.4.2",
+    "simple-git": "^3.27.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@epic-web/config": "^1.18.2",
+    "@types/node": "^22.13.11",
+    "@types/yargs": "^17.0.33",
+    "eslint": "^9.23.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  }
+}
