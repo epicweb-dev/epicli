@@ -10,6 +10,10 @@ export async function createTestRepo() {
 
 	await git.init()
 
+	// Configure git user identity for the test repo
+	await git.addConfig('user.name', 'Test User')
+	await git.addConfig('user.email', 'test@example.com')
+
 	// Create initial files
 	await writeFile(
 		join(tempDir, 'package.json'),
