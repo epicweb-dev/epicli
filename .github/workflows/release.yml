@@ -53,7 +53,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    needs: [test]
+    needs: [test, typecheck]
     runs-on: ubuntu-latest
     if:
       ${{ github.repository == 'epicweb-dev/epicli' &&
