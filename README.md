@@ -11,16 +11,11 @@
 ```sh
 npx epicli [command] [options]
 
-# create a new app
-npx epicli new my-app
+# apply changes from an example to your project
+npx epicli apply
 
-# update your app
+# update your app to the latest version of the epic stack
 npx epicli update
-
-# generate a prompt from an example repo
-npx epicli generate kentcdodds/epic-ai
-npx epicli generate https://github.com/epicweb-dev/epic-oidc
-npx epicli generate ./some-local-example-repo
 ```
 
 <div align="center">
@@ -53,54 +48,60 @@ npx epicli generate ./some-local-example-repo
 
 This is a CLI that helps you do all of those things.
 
-### new
+### apply
 
-(Not yet implemented, coming soon! Use `npm create epic-stack@latest` instead
-for now.)
-
-This command creates a new Epic Stack app.
+This command applies changes from Epic Stack example repositories to your app.
 
 ```sh
-npx epicli new my-app
+# browse examples interactively
+npx epicli apply
+
+# apply directly from a GitHub repo
+npx epicli apply kentcdodds/epic-ai
+npx epicli apply https://github.com/epicweb-dev/epic-oidc
+
+# filter files to apply
+npx epicli apply kentcdodds/epic-ai --file src/components/Button.tsx --file src/components/Input.tsx
+npx epicli apply kentcdodds/epic-ai --filter "src/components/*"
+npx epicli apply kentcdodds/epic-ai --ignore "*.test.ts"
 ```
 
-This will create a new app with the name `my-app` in the current directory.
+The apply command:
 
-Once that's done you can then run the generate command to help make changes to
-the app for your own needs.
-
-### generate
-
-This command generates an AI prompt from an example repo, and apply the changes
-to your own app.
-
-```sh
-npx epicli generate kentcdodds/epic-ai
-npx epicli generate https://github.com/kentcdodds/epic-ai
-npx epicli generate ./some-local-example-repo
-```
-
-This will get a diff from all the changes in the example from the first commit
-of the example repo to the last and use that to generate a prompt which you can
-then give to your AI Assistant (like [Cursor](https://cursor.sh),
-[Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview),
-[Windsurf](https://codeium.com/windsurf), etc.) which will then apply the
-changes to your own app.
+1. Lets you browse available Epic Stack examples interactively
+2. Gets the diff from the selected repository
+3. Creates patches to apply that example's changes to your project
+4. Generate a prompt which you can then give to your AI Assistant (like
+   [Cursor](https://cursor.sh),
+   [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview),
+   [Windsurf](https://codeium.com/windsurf), etc.) to make it apply the patches.
 
 ### update
 
-(Not yet implemented, coming soon!)
-
-This command is similar to the generate command, except it determines the diff
-in the Epic Stack repo from when you last updated your app to the latest commit
-and then generates a prompt you can give to your AI Assistant.
+This command updates your Epic Stack app with changes made in the Epic Stack
+repository.
 
 ```sh
 # local path
 npx epicli update ./your-epic-app
 # current directory
 npx epicli update .
+
+# filter files to update
+npx epicli update --file src/components/Button.tsx --file src/components/Input.tsx
+npx epicli update --filter "src/components/*"
+npx epicli update --ignore "*.test.ts"
 ```
+
+The update command:
+
+1. Checks your package.json for the last commit hash you updated from
+2. Shows what updates are available (grouped my major changes)
+3. Creates patches to implement those changes
+4. Generate a prompt which you can then give to your AI Assistant (like
+   [Cursor](https://cursor.sh),
+   [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview),
+   [Windsurf](https://codeium.com/windsurf), etc.) to make it apply the patches.
 
 Note: The update command requires that your epic stack app's package.json has
 the `epic-stack` key set to the last commit hash and date of the Epic Stack repo
@@ -115,6 +116,19 @@ app).
 	}
 }
 ```
+
+### new
+
+(Not yet implemented, coming soon! Use `npm create epic-stack@latest` instead
+for now.)
+
+This command creates a new Epic Stack app.
+
+```sh
+npx epicli new my-app
+```
+
+This will create a new app with the name `my-app` in the current directory.
 
 ## Limitations
 

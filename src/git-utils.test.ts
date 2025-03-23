@@ -1,6 +1,6 @@
 import { test, expect, beforeAll, afterAll } from 'vitest'
 import { createTestRepo, cleanupTestRepo } from '../tests/utils.js'
-import { getGitDiff } from './git-utils.js'
+import { getGitDiff } from './utils/diff.js'
 
 let testRepoPath: string
 
