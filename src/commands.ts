@@ -1,3 +1,4 @@
+import { execSync } from 'child_process'
 import chalk from 'chalk'
 import clipboard from 'clipboardy'
 import prompts from 'prompts'
@@ -49,14 +50,10 @@ Please help me apply similar changes to my project. Note that some files may hav
 	}
 }
 
-export async function newProject({ projectName }: { projectName: string }) {
+export async function newProject({ projectName }: { projectName?: string }) {
 	try {
-		// TODO: Implement new project creation
-		console.log(
-			chalk.yellow(
-				`\n🚧 New project creation coming soon! Your ${projectName} will become a reality one day!`,
-			),
-		)
+		const command = `npx --yes create-remix@latest --install --no-git-init --init-script --template epicweb-dev/epic-stack ${projectName ?? ''}`
+		execSync(command, { stdio: 'inherit' })
 	} catch (error) {
 		console.error(chalk.red('\n❌ Error:'), error)
 		process.exit(1)
