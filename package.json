@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "epicli": "./dist/bin/epicli.js"
+    "epicli": "dist/bin/epicli.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.src.json",
@@ -43,5 +43,13 @@
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epicweb-dev/epicly.git"
+  },
+  "bugs": {
+    "url": "https://github.com/epicweb-dev/epicly/issues"
+  },
+  "homepage": "https://github.com/epicweb-dev/epicly#readme"
 }
