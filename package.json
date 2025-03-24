@@ -46,10 +46,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/epicweb-dev/epicly.git"
+    "url": "https://github.com/epicweb-dev/epicli"
   },
   "bugs": {
-    "url": "https://github.com/epicweb-dev/epicly/issues"
+    "url": "https://github.com/epicweb-dev/epicli/issues"
   },
-  "homepage": "https://github.com/epicweb-dev/epicly#readme"
+  "homepage": "https://github.com/epicweb-dev/epicli#readme"
 }
