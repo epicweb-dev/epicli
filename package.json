@@ -1,7 +1,6 @@
 {
   "name": "epicli",
   "version": "0.0.0-semantically-released",
-  "access": "public",
   "description": "A powerful CLI for working with the Epic Stack",
   "main": "dist/index.js",
   "type": "module",
