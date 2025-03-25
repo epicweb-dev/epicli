@@ -27,7 +27,9 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "clipboardy": "^4.0.0",
+    "figlet": "^1.8.0",
     "filenamify": "^6.0.0",
+    "gradient-string": "^3.0.0",
     "octokit": "^4.1.2",
     "prompts": "^2.4.2",
     "simple-git": "^3.27.0",
@@ -35,6 +37,8 @@
   },
   "devDependencies": {
     "@epic-web/config": "^1.18.2",
+    "@types/figlet": "^1.7.0",
+    "@types/gradient-string": "^1.1.6",
     "@types/node": "^22.13.11",
     "@types/prompts": "^2.4.9",
     "@types/yargs": "^17.0.33",
