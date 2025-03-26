@@ -62,9 +62,9 @@ if (process.argv.length <= 2) {
 			async (argv) =>
 				apply({
 					...argv,
-					files: argv.file as string[] | undefined,
-					filterPatterns: argv.filter as string[] | undefined,
-					ignorePatterns: argv.ignore as string[] | undefined,
+					files: argv.file as Array<string> | undefined,
+					filterPatterns: argv.filter as Array<string> | undefined,
+					ignorePatterns: argv.ignore as Array<string> | undefined,
 				}),
 		)
 		.command<Parameters<typeof newProject>[0]>(
@@ -123,9 +123,9 @@ if (process.argv.length <= 2) {
 			async (argv) =>
 				update({
 					...argv,
-					files: argv.file as string[] | undefined,
-					filterPatterns: argv.filter as string[] | undefined,
-					ignorePatterns: argv.ignore as string[] | undefined,
+					files: argv.file as Array<string> | undefined,
+					filterPatterns: argv.filter as Array<string> | undefined,
+					ignorePatterns: argv.ignore as Array<string> | undefined,
 				}),
 		)
 		.demandCommand(1, 'You must specify a command')

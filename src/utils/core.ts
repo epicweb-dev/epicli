@@ -22,9 +22,9 @@ export async function applyChanges({
 	repo: string
 	key?: string
 	commits: Array<{ hash: string; date: string }>
-	files?: string[]
-	filterPatterns?: string[]
-	ignorePatterns?: string[]
+	files?: Array<string>
+	filterPatterns?: Array<string>
+	ignorePatterns?: Array<string>
 	instructions?: string
 	onComplete?: () => Promise<void>
 }) {
@@ -427,12 +427,17 @@ async function processFileOperations({
 			console.log(
 				chalk.whiteBright(
 					[
-						`The files in ${relativeUpdatesDir} are upstream patches from this project's template that need to be applied here.`,
-						`The template code is a bit different so the patch might not match exactly, but do your best to apply it anyway. Ignore formatting changes.`,
-						`1. Go through every patch in ${relativeUpdatesDir} and apply it to the matching file in ${workingDir}`,
-						`2. If it appears the patch has already been applied, no further changes are needed.`,
-						`3. After each patch, delete the patch file.`,
-						`4. Continue until all patch files are gone.`,
+						`The files in ${relativeUpdatesDir} are upstream patches from a similar project and we want to apply similar changes here.`,
+						`The project is a bit different so the patch might not match exactly, but do your best to apply it anyway.`,
+						`For each patch, follow these steps before working on the next patch until all patches are applied:`,
+						`1. If it appears the patch has not yet been applied, apply it to the matching file in ${workingDir}, otherwise continue to the next step.`,
+						`2. Delete the patch file.`,
+						'',
+						`Once you've finished applying all the patches, delete the ${relativeUpdatesDir} directory.`,
+						'',
+						`Here are some general notes:`,
+						`- Focus on the changed lines, not the surrounding code.`,
+						`- Ignore formatting changes.`,
 						update?.instructions || '',
 					].join('\n'),
 				),

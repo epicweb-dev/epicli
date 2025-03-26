@@ -56,9 +56,9 @@ export async function update({
 	baseSha?: string
 	headSha?: string
 	directory?: string
-	files?: string[]
-	filterPatterns?: string[]
-	ignorePatterns?: string[]
+	files?: Array<string>
+	filterPatterns?: Array<string>
+	ignorePatterns?: Array<string>
 }) {
 	const baseSha =
 		baseShaInput ?? (await getHeadFromPackageJson({ cwd: workingDir }))
@@ -133,7 +133,6 @@ If this is the only file, complete these closing steps.
 	})
 }
 
-
 export async function getEpicStackUpdates({ baseSha }: { baseSha: string }) {
 	const { git } = await gitUseRepo(
 		'https://github.com/epicweb-dev/epic-stack.git',
@@ -141,9 +140,8 @@ export async function getEpicStackUpdates({ baseSha }: { baseSha: string }) {
 	)
 
 	console.log(baseSha)
-	
-	try {
 
+	try {
 		const log = await git.log({
 			from: baseSha,
 			'--reverse': null, // oldest to newest
@@ -182,10 +180,18 @@ export async function getEpicStackUpdates({ baseSha }: { baseSha: string }) {
 
 		return updates
 	} catch (error) {
-		if (error instanceof Error && error.message.includes('Invalid symmetric difference expression')) {
-			console.error(chalk.red('\n❌ Error:'), `The commit ${baseSha} does not exist in the epic-stack repository.`)
+		if (
+			error instanceof Error &&
+			error.message.includes('Invalid symmetric difference expression')
+		) {
+			console.error(
+				chalk.red('\n❌ Error:'),
+				`The commit ${baseSha} does not exist in the epic-stack repository.`,
+			)
 			// TODO: technically the wrong suggestion, since user can pass any baseSha into this function
-			console.error('Please check that you have the correct commit hash in your package.json.')
+			console.error(
+				'Please check that you have the correct commit hash in your package.json.',
+			)
 			process.exit(1)
 		}
 		console.error(chalk.red('\n❌ Error:'), error)
@@ -194,7 +200,6 @@ export async function getEpicStackUpdates({ baseSha }: { baseSha: string }) {
 		// await cleanup()
 	}
 }
-
 
 const PackageJsonSchema = z.object({
 	'epic-stack': z.union([

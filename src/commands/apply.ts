@@ -19,9 +19,9 @@ export async function apply({
 	directory: string
 	baseSha?: string
 	headSha?: string
-	files?: string[]
-	filterPatterns?: string[]
-	ignorePatterns?: string[]
+	files?: Array<string>
+	filterPatterns?: Array<string>
+	ignorePatterns?: Array<string>
 }) {
 	try {
 		if (!upstreamRepo) {
