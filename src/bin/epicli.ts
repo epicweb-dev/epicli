@@ -24,10 +24,23 @@ if (process.argv.length <= 2) {
 			'new [project-name]',
 			'Create a new Epic Stack project',
 			(yargs) => {
-				return yargs.positional('project-name', {
-					type: 'string',
-					description: 'Name of the new project',
-				})
+				return yargs
+					.positional('project-name', {
+						type: 'string',
+						description: 'Name of the new project',
+					})
+					.option('ref', {
+						type: 'string',
+						description:
+							'Git reference (tag, hash, or branch name) to use from the Epic Stack repository',
+						default: 'main',
+					})
+					.option('repo', {
+						type: 'string',
+						description:
+							'GitHub repository URL to use as the template (e.g., username/epic-stack)',
+						default: 'epicweb-dev/epic-stack',
+					})
 			},
 			async (argv) => newProject(argv),
 		)
