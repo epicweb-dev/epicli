@@ -64,8 +64,10 @@ export async function update({
 		baseShaInput ?? (await getHeadFromPackageJson({ cwd: workingDir }))
 	invariant(baseSha, 'No base SHA found')
 
+	const key = Date.now().toString()
+
 	// next we need to fetch all commits for the repo
-	const updates = await getEpicStackUpdates({ baseSha })
+	const updates = await getEpicStackUpdates({ baseSha, key })
 	const update = updates.at(0)
 	if (!update) {
 		console.log(chalk.green('\n✅ No updates found'))
@@ -102,6 +104,7 @@ export async function update({
 		workingDir,
 		repo: 'https://github.com/epicweb-dev/epic-stack.git',
 		commits: update.commits,
+		key,
 		files,
 		filterPatterns,
 		ignorePatterns,
@@ -133,13 +136,17 @@ If this is the only file, complete these closing steps.
 	})
 }
 
-export async function getEpicStackUpdates({ baseSha }: { baseSha: string }) {
+export async function getEpicStackUpdates({
+	baseSha,
+	key,
+}: {
+	baseSha: string
+	key: string
+}) {
 	const { git } = await gitUseRepo(
 		'https://github.com/epicweb-dev/epic-stack.git',
-		{ key: 'epic-stack' },
+		{ key },
 	)
-
-	console.log(baseSha)
 
 	try {
 		const log = await git.log({
