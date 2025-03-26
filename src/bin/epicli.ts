@@ -2,7 +2,8 @@
 
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import { generate, newProject, showWelcomeScreen } from '../commands.js'
+import { generate, showWelcomeScreen } from '../commands.js'
+import { newProject } from '../new-project.js'
 
 if (process.argv.length <= 2) {
 	await showWelcomeScreen()
