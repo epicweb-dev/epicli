@@ -119,9 +119,6 @@ app).
 
 ### new
 
-(Not yet implemented, coming soon! Use `npm create epic-stack@latest` instead
-for now.)
-
 This command creates a new Epic Stack app.
 
 ```sh

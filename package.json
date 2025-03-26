@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node dist/bin/epicli.js",
     "build": "tsc -p tsconfig.src.json",
-    "dev": "tsc --watch",
+    "dev": "tsx ./src/bin/epicli.ts",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"**/*.ts\"",
     "typecheck": "tsc --noEmit",
