@@ -35,7 +35,9 @@ async function resolveRepoPath(
 	const parts = repoPath.split('/')
 	if (parts.length === 2) {
 		// If not local, treat as GitHub short format
-		return resolveRepoPath(`https://github.com/${repoPath}.git`)
+		return resolveRepoPath(`https://github.com/${repoPath}.git`, {
+			key: options.key,
+		})
 	}
 
 	throw new Error(
@@ -106,4 +108,4 @@ export async function checkGitWorkingTree(directory: string): Promise<boolean> {
 		// If we can't check the status, we'll assume it's clean to allow the operation
 		return true
 	}
-} 
+}

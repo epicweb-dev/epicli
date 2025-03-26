@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs'
-import { writeFile, mkdir, rm  } from 'node:fs/promises'
-import { join, dirname, normalize  } from 'node:path'
+import { writeFile, mkdir, rm } from 'node:fs/promises'
+import { join, dirname, normalize } from 'node:path'
 import chalk from 'chalk'
 import { minimatch } from 'minimatch'
 import prompts from 'prompts'
@@ -10,6 +10,7 @@ import { checkGitWorkingTree } from './repo.js'
 export async function applyChanges({
 	workingDir = process.cwd(),
 	repo,
+	key,
 	commits,
 	files,
 	filterPatterns,
@@ -19,6 +20,7 @@ export async function applyChanges({
 }: {
 	workingDir?: string
 	repo: string
+	key?: string
 	commits: Array<{ hash: string; date: string }>
 	files?: string[]
 	filterPatterns?: string[]
@@ -36,6 +38,7 @@ export async function applyChanges({
 	const diff = await getGitDiff(repo, {
 		from: firstCommit.hash,
 		to: lastCommit.hash,
+		key,
 	})
 
 	// Parse all diffs by type
@@ -182,7 +185,7 @@ export async function applyChanges({
 	await mkdir(outputDir, { recursive: true })
 
 	// TODO: make dry run output to a temp dir, and then this step just copies into the output dir
-	// That will fix the double logging issue 
+	// That will fix the double logging issue
 	await processFileOperations({
 		dryRun: false,
 		workingDir,
@@ -214,7 +217,6 @@ async function preCheckFiles({
 	}
 	return filesToAdd.length - movedToPatch.length
 }
-
 
 async function processFileOperations({
 	dryRun,

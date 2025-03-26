@@ -27,14 +27,14 @@ export async function apply({
 		if (!upstreamRepo) {
 			upstreamRepo = await selectExampleRepo()
 		}
+		const key = Date.now().toString()
 
-		const { git } = await gitUseRepo(upstreamRepo)
-		
+		const { git } = await gitUseRepo(upstreamRepo, { key })
+
 		const commits = await getCommitRange({ git, baseSha, headSha })
 
 		const firstCommit = commits[0]
 		const lastCommit = commits[commits.length - 1]
-
 
 		if (!firstCommit || !lastCommit) {
 			throw new Error('No commits found in repository')
@@ -54,6 +54,7 @@ export async function apply({
 			repo: upstreamRepo,
 			commits,
 			files,
+			key,
 			filterPatterns,
 			ignorePatterns,
 		})
@@ -62,7 +63,6 @@ export async function apply({
 		process.exit(1)
 	}
 }
-
 
 async function selectExampleRepo() {
 	console.log(`No example provided, searching for example repos 🔎`)
@@ -85,7 +85,6 @@ async function selectExampleRepo() {
 
 	return selectedRepo
 }
-
 
 export async function searchExampleRepos(query: string = 'epic-stack-example') {
 	const octokit = new Octokit()
