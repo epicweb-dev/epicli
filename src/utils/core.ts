@@ -438,6 +438,7 @@ async function processFileOperations({
 						`Here are some general notes:`,
 						`- Focus on the changed lines, not the surrounding code.`,
 						`- Ignore formatting changes.`,
+						`- Ignore lint/type errors.`,
 						update?.instructions || '',
 					].join('\n'),
 				),
