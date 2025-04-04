@@ -1,4 +1,3 @@
-
 import { type SimpleGit } from 'simple-git'
 
 export async function getCommitRange({
@@ -11,16 +10,13 @@ export async function getCommitRange({
 	headSha?: string
 }) {
 	const log = await git.log({
-		from: baseSha,
+		from: baseSha ? `${baseSha}^` : await git.firstCommit(),
+		to: headSha,
 		'--reverse': null,
 	})
 
-	const firstCommit = baseSha
-		? log.all.find((commit) => commit.hash.startsWith(baseSha))
-		: log.all[log.all.length - 1]
-	const lastCommit = headSha
-		? log.all.find((commit) => commit.hash.startsWith(headSha))
-		: log.all[0]
+	const firstCommit = log.all.at(0)
+	const lastCommit = log.all.at(-1)
 
 	if (!log.all.length || !firstCommit || !lastCommit) {
 		throw new Error('No commits found in repository')
