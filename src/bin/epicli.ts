@@ -4,6 +4,7 @@ import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { apply } from '../commands/apply.js'
 import { newProject } from '../commands/new.js'
+import { reset } from '../commands/reset.js'
 import { update } from '../commands/update.js'
 import { showWelcomeScreen } from '../commands/welcome.js'
 
@@ -127,6 +128,12 @@ if (process.argv.length <= 2) {
 					filterPatterns: argv.filter as Array<string> | undefined,
 					ignorePatterns: argv.ignore as Array<string> | undefined,
 				}),
+		)
+		.command(
+			'reset',
+			'Moves starter code into app-example directory and creates a blank app directory',
+			() => {},
+			async () => reset(),
 		)
 		.demandCommand(1, 'You must specify a command')
 		.help()

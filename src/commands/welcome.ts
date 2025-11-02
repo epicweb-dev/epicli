@@ -39,6 +39,10 @@ export async function showWelcomeScreen() {
 		textColor('  new [project-name]     ') +
 			chalk.dim(' - Create a new Epic Stack project'),
 	)
+	console.log(
+		textColor('  reset                  ') +
+			chalk.dim(' - Reset your Epic Stack project to a blank app'),
+	)
 
 	console.log(
 		'\nGet started by running: \n  ' + textColor('npx epicli new my-app'),
