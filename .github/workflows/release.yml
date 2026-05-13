@@ -54,7 +54,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: ${{ github.repository == 'epicweb-dev/epicli' && github.event_name == 'push' }}
+    if: >-
+      ${{
+        github.repository == 'epicweb-dev/epicli' &&
+        github.event_name == 'push' &&
+        (contains(fromJSON('["main","next","next-major","beta","alpha"]'), github.ref_name) ||
+          endsWith(github.ref_name, '.x'))
+      }}
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
@@ -83,12 +89,20 @@ jobs:
     name: 🚀 Release
     needs: [build-release-artifact]
     runs-on: ubuntu-latest
+    environment:
+      name: production
     permissions:
       contents: write # to be able to publish a GitHub release
       id-token: write # to enable use of OIDC for npm provenance
       issues: write # to be able to comment on released issues
       pull-requests: write # to be able to comment on released pull requests
-    if: ${{ github.repository == 'epicweb-dev/epicli' && github.event_name == 'push' }}
+    if: >-
+      ${{
+        github.repository == 'epicweb-dev/epicli' &&
+        github.event_name == 'push' &&
+        (contains(fromJSON('["main","next","next-major","beta","alpha"]'), github.ref_name) ||
+          endsWith(github.ref_name, '.x'))
+      }}
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
