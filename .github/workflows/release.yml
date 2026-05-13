@@ -83,6 +83,8 @@ jobs:
     name: 🚀 Release
     needs: [build-release-artifact]
     runs-on: ubuntu-latest
+    environment:
+      name: production
     permissions:
       contents: write # to be able to publish a GitHub release
       id-token: write # to enable use of OIDC for npm provenance
